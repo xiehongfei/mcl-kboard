@@ -1,0 +1,56 @@
+{
+  "name": "typewriter",
+  "display_name": "电报机（莫尔斯滴滴）",
+  "style": "typewriter",
+  "description": "抗日谍片风格莫尔斯电码边音「滴滴滴」，非打字机敲击声",
+  "default": "generic",
+  "source": "generated CW sidetone (mcl-kboard)",
+  "license": "MIT",
+  "layers": {
+    "soft": {
+      "generic": [
+        "sounds/dot_soft.wav"
+      ],
+      "space": [
+        "sounds/space.wav"
+      ],
+      "enter": [
+        "sounds/end.wav"
+      ],
+      "backspace": [
+        "sounds/backspace.wav"
+      ]
+    },
+    "mid": {
+      "generic": [
+        "sounds/dot.wav",
+        "sounds/double_dot.wav"
+      ],
+      "space": [
+        "sounds/space.wav",
+        "sounds/dash.wav"
+      ],
+      "enter": [
+        "sounds/end.wav"
+      ],
+      "backspace": [
+        "sounds/backspace.wav"
+      ]
+    },
+    "hard": {
+      "generic": [
+        "sounds/dash.wav",
+        "sounds/dash_hard.wav"
+      ],
+      "space": [
+        "sounds/dash_hard.wav"
+      ],
+      "enter": [
+        "sounds/end.wav"
+      ],
+      "backspace": [
+        "sounds/backspace.wav"
+      ]
+    }
+  }
+}

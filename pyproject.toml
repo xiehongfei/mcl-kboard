@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcl-kboard"
+version = "0.1.0"
+description = "基于 Apple Silicon 加速度计的力度感应机械键盘音效"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "mcl-kboard" }]
+dependencies = [
+  "macimu>=0.1.0",
+  "sounddevice>=0.5.0",
+  "numpy>=1.24",
+  "pynput>=1.7.6",
+  "rumps>=0.4.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.0",
+  "Pillow>=10.0",
+]
+
+[project.scripts]
+mcl-kboard = "mcl_kboard.cli:main"
+mcl-kboard-imu = "mcl_kboard.imu_daemon:main"
+mcl-kboard-agent = "mcl_kboard.agent:main"
+mcl-kboard-menubar = "mcl_kboard.menubar:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mcl_kboard = ["py.typed", "assets/*.png"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

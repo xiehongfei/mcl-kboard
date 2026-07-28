@@ -1,0 +1,76 @@
+{
+  "name": "ibm-model-m",
+  "display_name": "IBM Model M",
+  "style": "buckling-spring",
+  "description": "折叠弹簧 buckling spring（bucklespring）",
+  "default": "generic",
+  "source": "https://github.com/zevv/bucklespring",
+  "license": "GPL-2.0",
+  "layers": {
+    "soft": {
+      "generic": [
+        "sounds/01-0.wav",
+        "sounds/02-0.wav",
+        "sounds/03-0.wav",
+        "sounds/04-0.wav",
+        "sounds/05-0.wav",
+        "sounds/06-0.wav",
+        "sounds/07-0.wav"
+      ],
+      "space": [
+        "sounds/06-0.wav"
+      ],
+      "enter": [
+        "sounds/09-0.wav"
+      ],
+      "backspace": [
+        "sounds/03-0.wav"
+      ]
+    },
+    "mid": {
+      "generic": [
+        "sounds/01-0.wav",
+        "sounds/02-0.wav",
+        "sounds/03-0.wav",
+        "sounds/04-0.wav",
+        "sounds/05-0.wav",
+        "sounds/06-0.wav",
+        "sounds/07-0.wav",
+        "sounds/08-0.wav",
+        "sounds/09-0.wav",
+        "sounds/10-0.wav",
+        "sounds/11-0.wav",
+        "sounds/12-0.wav"
+      ],
+      "space": [
+        "sounds/06-0.wav"
+      ],
+      "enter": [
+        "sounds/09-0.wav"
+      ],
+      "backspace": [
+        "sounds/03-0.wav"
+      ]
+    },
+    "hard": {
+      "generic": [
+        "sounds/06-0.wav",
+        "sounds/07-0.wav",
+        "sounds/08-0.wav",
+        "sounds/09-0.wav",
+        "sounds/10-0.wav",
+        "sounds/11-0.wav",
+        "sounds/12-0.wav"
+      ],
+      "space": [
+        "sounds/06-0.wav"
+      ],
+      "enter": [
+        "sounds/09-0.wav"
+      ],
+      "backspace": [
+        "sounds/03-0.wav"
+      ]
+    }
+  }
+}

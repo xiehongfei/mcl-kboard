@@ -1,0 +1,38 @@
+[
+  {
+    "id": "cherry-mx-blue",
+    "display_name": "Cherry MX 青轴",
+    "style": "clicky",
+    "description": "青轴 clicky（Mechvibes mxblue-travel）"
+  },
+  {
+    "id": "holy-panda",
+    "display_name": "Holy Panda",
+    "style": "tactile",
+    "description": "熊猫轴 tactile（kbsim / Mechvibes）"
+  },
+  {
+    "id": "ibm-model-m",
+    "display_name": "IBM Model M",
+    "style": "buckling-spring",
+    "description": "折叠弹簧 buckling spring（bucklespring）"
+  },
+  {
+    "id": "nk-cream",
+    "display_name": "NovelKeys 奶油轴",
+    "style": "linear",
+    "description": "奶油轴 linear（Mechvibes cream-travel）"
+  },
+  {
+    "id": "turquoise",
+    "display_name": "Kailh Box 青绿",
+    "style": "clicky",
+    "description": "Kailh Box Turquoise clicky（Mechvibes）"
+  },
+  {
+    "id": "typewriter",
+    "display_name": "电报机（莫尔斯滴滴）",
+    "style": "typewriter",
+    "description": "抗日谍片风格莫尔斯电码边音「滴滴滴」，非打字机敲击声"
+  }
+]

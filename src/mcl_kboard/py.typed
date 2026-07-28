@@ -1,0 +1,1 @@
+"""Compatibility for Python 3.9 typing (tuple[] etc. via future annotations)."""

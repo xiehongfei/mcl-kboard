@@ -1,0 +1,62 @@
+{
+  "name": "holy-panda",
+  "display_name": "Holy Panda",
+  "style": "tactile",
+  "description": "熊猫轴 tactile（kbsim / Mechvibes）",
+  "default": "generic",
+  "source": "https://github.com/nirajrajgor/keesound",
+  "license": "MIT",
+  "layers": {
+    "soft": {
+      "generic": [
+        "sounds/generic_1.wav",
+        "sounds/generic_2.wav",
+        "sounds/generic_3.wav"
+      ],
+      "space": [
+        "sounds/space.wav"
+      ],
+      "enter": [
+        "sounds/enter.wav"
+      ],
+      "backspace": [
+        "sounds/backspace.wav"
+      ]
+    },
+    "mid": {
+      "generic": [
+        "sounds/generic_1.wav",
+        "sounds/generic_2.wav",
+        "sounds/generic_3.wav",
+        "sounds/generic_4.wav",
+        "sounds/generic_5.wav"
+      ],
+      "space": [
+        "sounds/space.wav"
+      ],
+      "enter": [
+        "sounds/enter.wav"
+      ],
+      "backspace": [
+        "sounds/backspace.wav"
+      ]
+    },
+    "hard": {
+      "generic": [
+        "sounds/generic_2.wav",
+        "sounds/generic_3.wav",
+        "sounds/generic_4.wav",
+        "sounds/generic_5.wav"
+      ],
+      "space": [
+        "sounds/space.wav"
+      ],
+      "enter": [
+        "sounds/enter.wav"
+      ],
+      "backspace": [
+        "sounds/backspace.wav"
+      ]
+    }
+  }
+}
