@@ -5,7 +5,7 @@
 <h1 align="center">mcl-kboard</h1>
 
 <p align="center">
-  利用 Apple Silicon MacBook 内置运动传感器，让键盘敲击声随力度变化。
+  利用 Apple Silicon MacBook 内置运动传感器，为静音本机键盘补上机械键盘音效，并让敲击声随力度轻重变化。
 </p>
 
 <p align="center">
