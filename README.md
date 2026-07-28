@@ -5,6 +5,15 @@
 <h1 align="center">mcl-kboard</h1>
 
 <p align="center">
+  <a href="README.en.md">English</a> ·
+  简体中文 ·
+  <a href="README.ja.md">日本語</a> ·
+  <a href="README.ko.md">한국어</a> ·
+  <a href="README.fr.md">Français</a> ·
+  <a href="README.de.md">Deutsch</a>
+</p>
+
+<p align="center">
   利用 Apple Silicon MacBook 内置运动传感器，为静音本机键盘补上机械键盘音效，并让敲击声随力度轻重变化。
 </p>
 
