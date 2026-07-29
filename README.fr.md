@@ -18,6 +18,11 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/xiehongfei/mcl-kboard">GitHub</a> ·
+  <a href="https://gitee.com/hongfeieleven/mcl-kboard">Gitee</a>
+</p>
+
+<p align="center">
   <img alt="Platform" src="https://img.shields.io/badge/platform-macOS-black?logo=apple">
   <img alt="Architecture" src="https://img.shields.io/badge/architecture-Apple%20Silicon-black">
   <img alt="Python" src="https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white">
@@ -50,7 +55,11 @@ La plupart des utilisateurs n’ont besoin que de **[Usage quotidien](#usage-quo
 ### 1. Installation unique
 
 ```bash
+# GitHub
 git clone https://github.com/xiehongfei/mcl-kboard.git
+# ou Gitee
+# git clone https://gitee.com/hongfeieleven/mcl-kboard.git
+
 cd mcl-kboard
 python3 -m venv .venv
 source .venv/bin/activate
