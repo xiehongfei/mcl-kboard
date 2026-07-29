@@ -76,6 +76,9 @@ def main() -> None:
             self.enable_item = rumps.MenuItem("启用音效", callback=self.toggle_enabled)
             self.enable_item.state = bool(self.state.enabled)
 
+            self.notify_item = rumps.MenuItem("桌面通知", callback=self.toggle_notifications)
+            self.notify_item.state = bool(self.state.show_notifications)
+
             self.volume_menu = rumps.MenuItem("音量调节")
             self.style_menu = rumps.MenuItem("切换音效 / 声源")
             self.sens_menu = rumps.MenuItem("力度灵敏度")
@@ -83,6 +86,7 @@ def main() -> None:
             # 先挂到 self.menu，再填充子菜单（避免 clear 崩溃）
             self.menu = [
                 self.enable_item,
+                self.notify_item,
                 None,
                 self.volume_menu,
                 rumps.MenuItem("音量 +10%", callback=self.vol_up),
@@ -99,8 +103,33 @@ def main() -> None:
                 rumps.MenuItem("退出键音", callback=self.quit_app),
             ]
             self._rebuild_all_submenus()
+            rumps.notifications(self._on_notification)
             if self.state.enabled:
                 _ensure_agent(True)
+
+        def _notify(self, title: str, subtitle: str, message: str, *, force: bool = False) -> None:
+            if not force and not self.state.show_notifications:
+                return
+            try:
+                rumps.notification(
+                    title,
+                    subtitle,
+                    message,
+                    sound=False,
+                    action_button="不再提示",
+                    data={"kind": "status"},
+                )
+            except Exception as e:
+                log.debug("notification failed: %s", e)
+
+        def _on_notification(self, info) -> None:
+            # 点击通知上的「不再提示」按钮
+            if getattr(info, "activation_type", None) != "action_button_clicked":
+                return
+            self.state.show_notifications = False
+            self.notify_item.state = False
+            self._persist()
+            log.info("desktop notifications disabled by user")
 
         def _vol_label_prefix(self) -> str:
             return f"音量调节（当前 {int(round(self.state.volume * 100))}%）"
@@ -159,21 +188,28 @@ def main() -> None:
             self.state.enabled = bool(sender.state)
             self._persist()
             _ensure_agent(self.state.enabled)
-            rumps.notification(
+            self._notify(
                 "键音 mcl-kboard",
                 "",
                 "音效已开启" if self.state.enabled else "音效已关闭",
             )
 
+        def toggle_notifications(self, sender: rumps.MenuItem) -> None:
+            sender.state = not sender.state
+            self.state.show_notifications = bool(sender.state)
+            self._persist()
+            if self.state.show_notifications:
+                self._notify("键音", "", "已重新开启桌面通知", force=True)
+
         def vol_up(self, _sender: rumps.MenuItem) -> None:
             self.state.volume = min(2.0, round(self.state.volume + 0.1, 2))
             self._persist()
-            rumps.notification("键音", "音量", f"{int(self.state.volume * 100)}%")
+            self._notify("键音", "音量", f"{int(self.state.volume * 100)}%")
 
         def vol_down(self, _sender: rumps.MenuItem) -> None:
             self.state.volume = max(0.0, round(self.state.volume - 0.1, 2))
             self._persist()
-            rumps.notification("键音", "音量", f"{int(self.state.volume * 100)}%")
+            self._notify("键音", "音量", f"{int(self.state.volume * 100)}%")
 
         def select_volume(self, sender: rumps.MenuItem) -> None:
             # "设为 80%"
@@ -181,7 +217,7 @@ def main() -> None:
                 pct = int("".join(ch for ch in sender.title if ch.isdigit()))
                 self.state.volume = max(0.0, min(2.0, pct / 100.0))
                 self._persist()
-                rumps.notification("键音", "音量", f"{pct}%")
+                self._notify("键音", "音量", f"{pct}%")
             except ValueError:
                 pass
 
@@ -206,7 +242,7 @@ def main() -> None:
             pack_id = title.split("·")[-1].strip() if "·" in title else title
             self.state.pack = pack_id
             self._persist()
-            rumps.notification("键音", "音效已切换", pack_id)
+            self._notify("键音", "音效已切换", pack_id)
             from .audio_engine import preview_pack_async
 
             preview_pack_async(pack_id, volume=self.state.volume)
@@ -217,13 +253,14 @@ def main() -> None:
 
                 preview_pack(self.state.pack, volume=self.state.volume)
             except Exception as e:
-                rumps.notification("键音", "试听失败", str(e))
+                self._notify("键音", "试听失败", str(e), force=True)
 
         def reload(self, _sender: rumps.MenuItem) -> None:
             self.state = load_state()
             self.enable_item.state = bool(self.state.enabled)
+            self.notify_item.state = bool(self.state.show_notifications)
             self._persist()
-            rumps.notification("键音", "", "菜单已刷新")
+            self._notify("键音", "", "菜单已刷新")
 
         def quit_app(self, _sender: rumps.MenuItem) -> None:
             try:

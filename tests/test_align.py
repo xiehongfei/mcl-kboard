@@ -27,9 +27,10 @@ def test_list_and_load_pack():
 
 def test_state_roundtrip(tmp_path: Path):
     path = tmp_path / "state.json"
-    s = AppState(volume=0.55, pack="cherry-mx-blue", sensitivity=1.3)
+    s = AppState(volume=0.55, pack="cherry-mx-blue", sensitivity=1.3, show_notifications=False)
     save_state(s, path)
     loaded = load_state(path)
     assert loaded.volume == 0.55
     assert loaded.pack == "cherry-mx-blue"
     assert loaded.sensitivity == 1.3
+    assert loaded.show_notifications is False

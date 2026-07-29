@@ -229,7 +229,7 @@ ioreg -l -w0 | grep -A5 AppleSPUHIDDevice
 |------|------|
 | 测试音有声，打字无声 | `mcl-kboard doctor --reveal`，授权后 `stop` 再 `start --menubar` |
 | 有声但轻重无差别 | 别用 mock 测真实力度；确认 `status` 里 `imu daemon: loaded` |
-| 菜单栏没有奔马 | `mcl-kboard menubar`；日志：`~/Library/Application Support/mcl-kboard/menubar.log` |
+| 菜单栏没有奔马 | 多为 `/usr/local` 仍是旧包：在仓库执行 `bash packaging/install.sh` 更新后再 `mcl-kboard menubar`；或临时 `source .venv/bin/activate && mcl-kboard menubar`。日志：`~/Library/Application Support/mcl-kboard/menubar.log` |
 | `sudo: mcl-kboard: command not found` | 用 `bash packaging/install.sh` |
 
 ---

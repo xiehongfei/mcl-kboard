@@ -23,6 +23,7 @@ class AppState:
     mute_modifiers: bool = True
     align_window_ms: float = 45.0
     default_velocity: float = 0.55
+    show_notifications: bool = True
 
     def clamp(self) -> AppState:
         self.volume = float(max(0.0, min(2.0, self.volume)))

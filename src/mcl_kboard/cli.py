@@ -281,6 +281,13 @@ def cmd_menubar(_: argparse.Namespace) -> int:
     if pid and _pid_alive(pid):
         print(f"menubar already running (pid {pid})")
         return 0
+    # 清掉退出/崩溃后残留的 pid 文件，避免误判
+    if MENUBAR_PID_PATH.exists():
+        try:
+            MENUBAR_PID_PATH.unlink()
+        except OSError:
+            pass
+
     log_path = SUPPORT_DIR / "menubar.log"
     proc = subprocess.Popen(
         [_python(), "-m", "mcl_kboard.menubar"],
@@ -288,8 +295,31 @@ def cmd_menubar(_: argparse.Namespace) -> int:
         stderr=subprocess.STDOUT,
         start_new_session=True,
     )
-    time.sleep(0.3)
-    print(f"started menubar (spawn pid {proc.pid})")
+    # rumps 初始化稍慢；崩溃通常发生在 1s 内
+    time.sleep(0.8)
+    if proc.poll() is not None or not _pid_alive(proc.pid):
+        print(f"menubar 启动失败（进程已退出，spawn pid {proc.pid}）")
+        print(f"请查看日志: {log_path}")
+        try:
+            # 打印最近一次 Traceback 方便用户排查
+            text = log_path.read_text(encoding="utf-8", errors="replace")
+            if "Traceback" in text:
+                chunk = text[text.rfind("Traceback") :]
+                print(chunk[-1200:])
+        except OSError:
+            pass
+        # 常见原因：系统安装包过旧
+        if str(Path(sys.executable)).startswith("/usr/local/mcl-kboard"):
+            print(
+                "提示: 当前使用的是 /usr/local 安装包，可能不是最新代码。\n"
+                "请在仓库目录更新安装：\n"
+                "  bash packaging/install.sh\n"
+                "或临时用开发环境：\n"
+                "  source .venv/bin/activate && mcl-kboard menubar"
+            )
+        return 1
+    print(f"started menubar (pid {proc.pid})")
+    print("请看屏幕右上角奔马图标")
     return 0
 
 
@@ -430,7 +460,8 @@ def cmd_install(args: argparse.Namespace) -> int:
         subprocess.check_call([sys.executable, "-m", "venv", str(venv)])
     pip = venv / "bin" / "pip"
     subprocess.check_call([str(pip), "install", "--upgrade", "pip"])
-    subprocess.check_call([str(pip), "install", str(root)])
+    # 强制重装，确保更新仓库代码后 /usr/local 不是旧包
+    subprocess.check_call([str(pip), "install", "--upgrade", "--force-reinstall", str(root)])
 
     # Copy packs
     packs_src = root / "packs"
